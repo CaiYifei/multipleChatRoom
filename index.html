@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Room</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js"
+            integrity="sha256-NjvZ8gIg9zLFdxl3od64ktjChFLBCxqJnFR1f6UqtXk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular-route.min.js"
+            integrity="sha256-+z+y2lnBw4V1nLPrQ9MFjPDHdtv8wxmanc08mAyvAYA=" crossorigin="anonymous"></script>
+
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -19,22 +26,25 @@
     <div class="row">
         <div class="col-sm-2 roomWrap">
             <b>ROOMS</b>
-            <div id="rooms" ng-bind="rooms | renderHTMLCorrectly"></div>
+            <div id="rooms" ng-bind="rooms"></div>
         </div>
         <div class="col-sm-8 messageWrap">
             <p class="room">Now you are in {{room}}</p>
-            <p class="nickName">Your nick name is {{nickName}}</p>
             <input type="text" id="data" class="messageInput" ng-model="messageInput" ng-keypress="$event.keyCode==13 && sendMessage()"/>
             <input type="button" id="datasend" value="send" ng-click="sendMessage()"/>
-            <div id="conversation" class="messageLog" ng-bind-html="messageLog | renderHTMLCorrectly"></div>
+            <div>
+                <p class="note">
+                    add room: prefix the room name with /join, i.e. /join room04;
+                    <br>
+                    change nick name: prefix the new nick name with /nick, i.e. /nick visitor;
+                </p>
+            </div>
+            <div id="conversation" class="messageLog" ng-bind-html="messageLog"></div>
         </div>
     </div>
 </div>
 
-<script src="myAngularJS.js"></script>
-<!--<script>-->
-    <!--$('#conversation').scrollTop($('#conversation').scrollHeight);-->
-<!--</script>-->
+<script src="js/myAngularJS.js"></script>
 
 </body>
 </html>

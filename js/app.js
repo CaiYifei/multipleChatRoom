@@ -1,10 +1,10 @@
-var express = require('express')
+var express = require('express');
 var app = express();
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var path = require('path');
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "../")));
 server.listen(8888);
 
 
@@ -45,21 +45,28 @@ io.sockets.on('connection', function (socket) {
 
         if (msg.substring(0, ind1) === "/join") {
 
-            var newroom = msg.substring(ind1 + 1);
+            var newroom = msg.substring(ind1 + 1).trim();
             rooms.push(newroom);
 
             socket.emit('room', newroom);
             socket.leave(socket.room);
             socket.join(newroom);
-            socket.emit('updatechat', 'System', 'you have connected to ' + newroom);
+            socket.emit('updatechat', 'joinRoom', 'you have connected to ' + newroom);
             // sent message to OLD room
-            socket.broadcast.to(socket.room).emit('updatechat', 'System', socket.username + ' has left this room');
+            socket.broadcast.to(socket.room).emit('updatechat', 'joinRoom', socket.username + ' has left this room');
             // update socket session room title
             socket.room = newroom;
-            socket.broadcast.to(newroom).emit('updatechat', 'System', socket.username + ' has joined this room');
+            socket.broadcast.to(newroom).emit('updatechat', 'joinRoom', socket.username + ' has joined this room');
             socket.broadcast.emit('updaterooms', rooms, newroom);
             socket.emit('updaterooms', rooms, newroom);
 
+        } else if (msg.substring(0, ind1) === "/nick") {
+            var newName = msg.substring(ind1 + 1).trim();
+            var oldName = socket.username;
+            socket.username = newName;
+
+            socket.emit('updatechat', 'nickName', oldName + " has changed name into " + socket.username);
+            socket.broadcast.to(socket.room).emit('updatechat', 'nickName', oldName + " has changed name into " + socket.username);
         } else {
             // we tell the client to execute 'updatechat' with 2 parameters
             io.sockets.in(socket.room).emit('updatechat', socket.username, data);

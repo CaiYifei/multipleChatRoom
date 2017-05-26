@@ -1,0 +1,55 @@
+.roomWrap{
+    height:250px;
+    padding:10px;
+    overflow:auto;
+}
+
+.messageWrap{
+    border-left:1px solid black;
+    padding:10px;
+}
+
+.messageInput{
+    width:200px;
+}
+
+.messageLog{
+    margin-top: 20px;
+    max-height: 300px;
+    overflow:auto;
+    border-top:1px solid black;
+}
+
+.roomID:hover, .roomID:active{
+    background-color: lavender;
+    color: black;
+}
+
+.msg:nth-child(even){
+    background-color: #a7dbd8;
+}
+
+.sysMsg{
+    color: red;
+    font-weight: bold;
+}
+
+.userMsg{
+    color: black;
+    font-weight: normal;
+}
+
+.messageLog{
+    margin-top: 20px;
+}
+
+.room{
+    font-size: 2em;
+    color:darkcyan;
+    font-weight: bold;
+}
+
+.note {
+    color: red;
+    font-weight: bold;
+}

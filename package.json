@@ -35,5 +35,13 @@
   "devDependencies": {},
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "Multiple Chat Room\r 1. The login port is localhost:8888.\r 2. Input a message prefixed with \"/join\" command to create a new room, e.g. \"/join room4\".",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaiYifei/multipleChatRoom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CaiYifei/multipleChatRoom/issues"
+  },
+  "homepage": "https://github.com/CaiYifei/multipleChatRoom#readme"
 }
