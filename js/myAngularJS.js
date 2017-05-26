@@ -8,10 +8,7 @@ app.filter('renderHTMLCorrectly', function ($sce) {
 
 app.controller("myCtrl", function ($scope, $timeout, $window) {
     var socket = io.connect('http://localhost:8888');
-
-    // on connection to server, ask for user's name with an anonymous callback
     socket.on('connect', function () {
-        // call the server-side function 'adduser' and send one parameter (value of prompt)
         $scope.nickName=$window.prompt("What's your name?", "visitor");
         socket.emit('adduser', $scope.nickName);
     });
@@ -22,10 +19,8 @@ app.controller("myCtrl", function ($scope, $timeout, $window) {
         },100);
     });
 
-    // listener, whenever the server emits 'updatechat', this updates the chat body
     socket.on('updatechat', function (username, data) {
         var conversation = angular.element('#conversation');
-
         if (username == "joinRoom" || username == "System") {
             conversation.append('<div class="sysMsg msg"><b>System:</b> ' + data + '</div>');
         } else if (username == "nickName") {
@@ -33,23 +28,18 @@ app.controller("myCtrl", function ($scope, $timeout, $window) {
         } else {
             conversation.append('<div class="userMsg msg"><b>' + username + ':</b> ' + data + '</div>');
         }
-
         conversation.scrollTop(conversation.prop("scrollHeight"));
 
     });
 
-    // listener, whenever the server emits 'updaterooms', this updates the room the client is in
     socket.on('updaterooms', function (rooms, currentRoom) {
-        //$scope.rooms = "";
         var roomsArray = angular.element('#rooms');
         roomsArray.empty();
         var i = 0;
         for (i = 0; i < rooms.length; i++) {
             if (rooms[i] == currentRoom) {
-                //$scope.rooms+='<div class="roomID">' + currentRoom + '</div>';
                 roomsArray.append('<div class="roomID">' + currentRoom + '</div>');
             } else {
-                //$scope.rooms+='<div><a href="#" class="roomID">' + rooms[i] + '</a></div>';
                 roomsArray.append('<div><a href="#" class="roomID">' + rooms[i] + '</a></div>');
             }
         }
@@ -64,8 +54,6 @@ app.controller("myCtrl", function ($scope, $timeout, $window) {
         }
     });
 
-
-    // on load of page
     $scope.sendMessage = function () {
         var messageIn = $scope.messageInput;
         $scope.messageInput = "";
